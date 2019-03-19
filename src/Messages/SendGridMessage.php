@@ -8,7 +8,7 @@ use SendGrid\Mail\From;
 class SendGridMessage
 {
     /**
-     * The "from" information for the message.
+     * The "from" for the message.
      *
      * @var \SendGrid\Mail\From
      */
@@ -28,14 +28,24 @@ class SendGridMessage
      */
     public $templateId;
 
-    public function __construct()
+    /**
+     * Create a new SendGrid channel instance.
+     *
+     * @param  string  $templateId
+     * @return void
+     */
+    public function __construct($templateId)
     {
-        $this->from = new From(
-            $this->app->config['mail.from.address'],
-            $this->app->config['mail.from.name']
-        );
+        $this->templateId = $templateId;
     }
 
+    /**
+     * Set the "from".
+     *
+     * @param  string  $email
+     * @param  string  $name
+     * @return $this
+     */
     public function from($email, $name)
     {
         $this->from = new From($email, $name);
@@ -43,16 +53,17 @@ class SendGridMessage
         return $this;
     }
 
+    /**
+     * Set the "tos".
+     *
+     * @param  string  $email
+     * @param  string  $name
+     * @param  array  $data
+     * @return $this
+     */
     public function to($email, $name, $data = [])
     {
-        $this->tos = array_merge($this->tos, new To($email, $name, $data));
-
-        return $this;
-    }
-
-    public function templateId($templateId)
-    {
-        $this->templateId = $templateId;
+        $this->tos = array_merge($this->tos, [new To($email, $name, $data)]);
 
         return $this;
     }
