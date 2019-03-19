@@ -8,25 +8,23 @@
 
 Next, you will need to add a few configuration options to your `config/services.php` configuration file. You may copy the example configuration below to get started:
 
-```
-'sendgrid' => [
-    'api_key' => env('SENDGRID_API_KEY'),
-],
-```
+    'sendgrid' => [
+        'api_key' => env('SENDGRID_API_KEY'),
+    ],
 
 ### Formatting SendGrid Mail Notifications
 
 You should define a `toSendGrid` method on the notification class. This method will receive a `$notifiable` entity and should return a  `Illuminate\Notifications\Messages\SendGridMessage` instance:
 
-/**
- * Get the SendGrid representation of the notification.
- *
- * @param  mixed  $notifiable
- * @return SendGridMessage
- */
-public function toSendGrid($notifiable)
-{
-    return (new SendGridMessage('Your SendGrid template ID'))
-                ->from('test@example.com', 'Example User')
-                ->to('test+test1@example.com', 'Example User1');
-}
+    /**
+     * Get the SendGrid representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return SendGridMessage
+     */
+    public function toSendGrid($notifiable)
+    {
+        return (new SendGridMessage('Your SendGrid template ID'))
+                    ->from('test@example.com', 'Example User')
+                    ->to('test+test1@example.com', 'Example User1');
+    }
