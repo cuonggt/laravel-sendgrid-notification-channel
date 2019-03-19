@@ -18,7 +18,7 @@ class SendGridChannelServiceProvider extends ServiceProvider
         Notification::extend('sendgrid', function ($app) {
             return new Channels\SendGridMailChannel(
                 new \SendGrid(
-                    $this->app['config']['services.sendgrid.secret']
+                    $this->app['config']['services.sendgrid.api_key']
                 )
             );
         });
